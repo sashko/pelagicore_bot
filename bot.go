@@ -1,10 +1,35 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
+	"os"
 
 	"gopkg.in/telegram-bot-api.v4"
 )
+
+type Config struct {
+	Token string `json:"token"`
+}
+
+func getConfig() Config {
+	var config Config
+
+	configFile, err := os.Open("config.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer configFile.Close()
+
+	jsonParser := json.NewDecoder(configFile)
+	err = jsonParser.Decode(&config)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return config
+}
 
 func replyHelp() string {
 	str := "I accept the following commands:\n\n" +
@@ -16,7 +41,11 @@ func replyHelp() string {
 func main() {
 	log.Println("pelagicore_bot has started")
 
-	bot, err := tgbotapi.NewBotAPI("")
+	var config Config
+
+	config = getConfig()
+
+	bot, err := tgbotapi.NewBotAPI(config.Token)
 	if err != nil {
 		log.Panic(err)
 	}
