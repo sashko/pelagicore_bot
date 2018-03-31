@@ -31,13 +31,6 @@ func getConfig() Config {
 	return config
 }
 
-func replyHelp() string {
-	str := "I accept the following commands:\n\n" +
-		"/help\t    print available commands"
-
-	return str
-}
-
 func main() {
 	log.Println("pelagicore_bot has started")
 
@@ -76,7 +69,7 @@ func main() {
 
 		switch update.Message.Text {
 		case "/help":
-			msgText = replyHelp()
+			msgText = handleHelp()
 		default:
 			msgText = "Implement this command first mate :/"
 		}
