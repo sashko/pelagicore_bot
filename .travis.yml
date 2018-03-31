@@ -1,0 +1,9 @@
+matrix:
+  include:
+    - language: go
+      # build/test with the latest Go release
+      go: master
+
+# get dependencies
+before_script:
+  - go get gopkg.in/telegram-bot-api.v4 
