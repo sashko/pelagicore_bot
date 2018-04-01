@@ -70,6 +70,10 @@ func main() {
 		switch update.Message.Text {
 		case "/help":
 			msgText = handleHelp()
+		case "/screenlock":
+			msgText = handleScreenLock()
+		case "/screenunlock":
+			msgText = handleScreenUnlock()
 		default:
 			msgText = "Implement this command first mate :/"
 		}
